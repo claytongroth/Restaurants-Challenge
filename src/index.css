@@ -17,6 +17,11 @@ code {
   justify-content:space-evenly;
   flex-wrap: wrap;
 }
+.between-row {
+  display: flex;
+  justify-content:space-between;
+  flex-wrap: wrap;
+}
 
 /* Start Search CSS */
 .search-btn  {
@@ -34,10 +39,16 @@ code {
 .search-btn:hover {
   background-color: rgb(146, 146, 146);
 }
+.search-input {
+  height: 20px;
+  border-radius: 2px;
+  font-size: 16px;
+  border: 2px solid rgb(146, 146, 146);
+}
+
 /* End Search CSS */
 
 /* Start Select CSS */
-
 .select-wrapper {
   display: flex;
   justify-content:space-evenly;
@@ -56,11 +67,24 @@ code {
 }
 /* End Select CSS */
 
+/* Start select CSS */
+.search-text {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+/* End select CSS */
+
 /* Start pagination CSS */
 .pagination-row {
   display: flex;
   justify-content:space-between;
 }
+.pagination-row h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .pagination-row button {
   background-color: #ddd;
   border: none;
@@ -86,7 +110,8 @@ table {
 }
 
 th {
-  border: 2px solid black;
+  border: 2px solid rgb(146, 146, 146);
+  color: rgb(94, 94, 94);
 }
 table, td {
   border: 1px solid black;

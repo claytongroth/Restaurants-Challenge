@@ -5,7 +5,7 @@ const PaginationRow = ({page, numPages, handlePageDown, handlePageUp}) => {
         <div className="pagination-row">
             <button disabled={page === 0} onClick={handlePageDown}>Prev Page</button>
             <h3>{`Page: ${page+1} of ${numPages+1}`}</h3>
-            <button disabled={page === numPages}  onClick={handlePageUp}>Next Page</button>
+            <button className="right" disabled={page === numPages}  onClick={handlePageUp}>Next Page</button>
         </div>
     );
 }

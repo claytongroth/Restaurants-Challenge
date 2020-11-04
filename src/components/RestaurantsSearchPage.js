@@ -114,16 +114,14 @@ const RestaurantsSearchPage = () => {
     return ( 
         <div>
             <div className="even-row">
-                <h2> Restaurants </h2>
+                <h1> Restaurants </h1>
                 <div>
-                    <p>Search</p>
-                    
-                    <input onKeyPress={(e)=> {handleKeyPress(e)}} value={search} onChange={(e)=>setSearch(e.target.value)}/>
+                    <p className="search-text">Search</p>
+                    <input className="search-input"  onKeyPress={(e)=> {handleKeyPress(e)}} value={search} onChange={(e)=>setSearch(e.target.value)}/>
                     <button className="search-btn" onClick={()=>setSearchFilter(search)}>Search</button>
                 </div>
             </div>
-            <br/>
-            <div className="even-row selects">
+            <div className="between-row selects">
                 <Select 
                     title="State"
                     value={stateValue} 
