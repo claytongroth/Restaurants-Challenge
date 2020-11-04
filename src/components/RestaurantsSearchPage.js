@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import fetchRestaurantData from '../api/fetchRestaurantData'
+import Select from './Select';
 
 const RestaurantsSearchPage = () => {
     const [allRestaurants, setAllRestaurants] = useState([]);
@@ -35,7 +36,7 @@ const RestaurantsSearchPage = () => {
 
     const setOptions = (arr) => {
         //return all options for that array preceded by "ALL" option.
-        return [<option value="All">All</option>, ...arr.map((x,i)=> <option key={i} value={x}>{x}</option>)]
+        return [<option key="all" value="All">All</option>, ...arr.map((x,i)=> <option key={i} value={x}>{x}</option>)]
     }
 
     return ( 
@@ -46,33 +47,24 @@ const RestaurantsSearchPage = () => {
                     <p>Search</p>
                     <input/>
                 </div>
-                <div>
-                    <p>State</p>
-                    <select 
-                        value={stateValue} 
-                        onChange={(e)=>setStateValue(e.target.value)} 
-                    >
-                        {setOptions(possibleStates)}
-                    </select> 
-                </div> 
-                <div>
-                    <p>Genres</p>
-                    <select
-                        value={genreValue} 
-                        onChange={(e)=>setGenreValue(e.target.value)} 
-                    >
-                        {setOptions(possibleGenres)}
-                    </select> 
-                </div> 
-                <div>
-                    <p>Attire</p>
-                    <select
-                        value={attireValue} 
-                        onChange={(e)=>setAttireValue(e.target.value)} 
-                    >
-                        {setOptions(possibleAttires)}
-                    </select> 
-                </div> 
+                <Select 
+                    title="State"
+                    value={stateValue} 
+                    changeHandler={(e)=>setStateValue(e.target.value)} 
+                    options={setOptions(possibleStates)} 
+                />
+                <Select 
+                    title="Genre"
+                    value={genreValue} 
+                    changeHandler={(e)=>setGenreValue(e.target.value)} 
+                    options={setOptions(possibleGenres)} 
+                />
+                <Select 
+                    title="Attire"
+                    value={attireValue} 
+                    changeHandler={(e)=>setAttireValue(e.target.value)} 
+                    options={setOptions(possibleAttires)} 
+                />
             </div>
             <hr/>
             <table>
