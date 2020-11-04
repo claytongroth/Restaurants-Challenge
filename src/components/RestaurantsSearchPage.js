@@ -81,13 +81,19 @@ const RestaurantsSearchPage = () => {
         return [<option key="all" value="All">All</option>, ...arr.map((x,i)=> <option key={i} value={x}>{x}</option>)]
     }
 
+    const handleKeyPress = (e) => {
+        if (e.which === 13){
+            setSearchFilter(search);
+        }
+    }
     return ( 
         <div>
             <div style={{display: "flex", justifyContent:"space-evenly"}}>
                 <h2> Restaurants </h2>
                 <div>
                     <p>Search</p>
-                    <input value={search} onChange={(e)=>setSearch(e.target.value)}/>
+                    
+                    <input onKeyPress={(e)=> {handleKeyPress(e)}} value={search} onChange={(e)=>setSearch(e.target.value)}/>
                     <button onClick={()=>setSearchFilter(search)}>Search</button>
                 </div>
                 <Select 
