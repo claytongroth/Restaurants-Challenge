@@ -152,7 +152,7 @@ const RestaurantsSearchPage = () => {
             </div>
 
             <PaginationRow 
-                handlePageDown={handlePageUp} 
+                handlePageUp={handlePageUp} 
                 handlePageDown={handlePageDown} 
                 page={page} 
                 numPages={numPages}
