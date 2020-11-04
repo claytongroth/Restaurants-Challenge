@@ -11,6 +11,7 @@ const Table = ({page, array}) => {
                     <th>State</th>
                     <th>Genres</th>
                     <th>Attire</th>
+                    <th>Phone</th>
                 </tr>
                 {
                     displaySlice.map((item, i) => {
@@ -21,6 +22,7 @@ const Table = ({page, array}) => {
                                 <td>{item.state}</td>
                                 <td>{item.genre.replace(/,[s]*/g, ", ")}</td>
                                 <td>{item.attire}</td>
+                                <td>{item.telephone}</td>
                             </tr>
                         );
                     })
