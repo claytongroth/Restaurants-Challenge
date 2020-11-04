@@ -13,7 +13,7 @@ const Select = ({title, value, changeHandler, options, on, toggle}) => {
             <br/>
             <div className="radio">
                 <label>
-                <input type="radio" onClick={toggle} checked={on} />
+                <input type="radio" readOnly  onClick={toggle} checked={on} />
                     {on ? "On" : "Off"}
                 </label>
             </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import fetchRestaurantData from '../api/fetchRestaurantData'
+import PaginationRow from './PaginationRow';
 import Select from './Select';
 import Table from './Table';
 
@@ -148,12 +149,13 @@ const RestaurantsSearchPage = () => {
                 
             </div>
 
-            <div style={{display: "flex", justifyContent:"space-between"}}>
-                <button disabled={page === 0} onClick={()=> handlePageDown()}>Prev Page</button>
-                <h3>{`Page: ${page+1} of ${numPages+1}`}</h3>
-                <button disabled={page === numPages}  onClick={()=> handlePageUp()}>Next Page</button>
-            </div>
-
+            <PaginationRow 
+                handlePageDown={handlePageUp} 
+                handlePageDown={handlePageDown} 
+                page={page} 
+                numPages={numPages}
+            />
+ 
             <hr/>
             {
                 filteredRestaurants.length > 0 ?
