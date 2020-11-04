@@ -25,6 +25,12 @@ const RestaurantsSearchPage = () => {
     const [genreValue, setGenreValue] = useState("All");
     const [attireValue, setAttireValue] = useState("All");
 
+    //store toggled on/off state for filters
+    const [stateOn, setStateOn] = useState(true);
+    const [genreOn, setGenreOn] = useState(true);
+    const [attireOn, setAttireOn] = useState(true);
+
+
     const getUniques = (array, property) => {
         if (property){
             return [...new Set(array.map(x=>x[property]))];
@@ -42,13 +48,13 @@ const RestaurantsSearchPage = () => {
     //When any of the select values change, filter for rest results.
     useEffect(() => {
         let newRestaurants = [...allRestaurants];
-        if (stateValue !== "All"){
+        if (stateValue !== "All" && stateOn){
             newRestaurants = newRestaurants.filter(rest =>  rest.state === stateValue );
         }
-        if (genreValue !== "All"){
+        if (genreValue !== "All" && genreOn){
             newRestaurants = newRestaurants.filter(rest => rest.genre.includes(genreValue));
         }
-        if (attireValue !== "All"){
+        if (attireValue !== "All" && attireOn){
             newRestaurants = newRestaurants.filter(rest => rest.attire === attireValue);
         }
         if (searchFilter){
@@ -64,7 +70,7 @@ const RestaurantsSearchPage = () => {
         setFilteredRestaurants(newRestaurants);
         //set number of pages to rounded new results / 10
         setNumPages( Math.floor(newRestaurants.length / 10))
-    }, [allRestaurants, stateValue, genreValue, attireValue, searchFilter])
+    }, [allRestaurants, stateValue, genreValue, attireValue, stateOn, genreOn, attireOn, searchFilter])
 
     //if search goes empty or gets below 4 charaters, clear filter
     useEffect(() => {
@@ -118,22 +124,30 @@ const RestaurantsSearchPage = () => {
                     title="State"
                     value={stateValue} 
                     changeHandler={(e)=>setStateValue(e.target.value)} 
-                    options={setOptions(possibleStates)} 
+                    options={setOptions(possibleStates)}
+                    on={stateOn} 
+                    toggle={()=>{setStateOn(!stateOn)}}
+
                 />
                 <Select 
                     title="Genre"
                     value={genreValue} 
                     changeHandler={(e)=>setGenreValue(e.target.value)} 
                     options={setOptions(possibleGenres)} 
+                    on={genreOn}
+                    toggle={()=>setGenreOn(!genreOn)}
                 />
                 <Select 
                     title="Attire"
                     value={attireValue} 
                     changeHandler={(e)=>setAttireValue(e.target.value)} 
                     options={setOptions(possibleAttires)} 
+                    on={attireOn}
+                    toggle={()=>setAttireOn(!attireOn)}
                 />
+                
             </div>
-            
+
             <div style={{display: "flex", justifyContent:"space-between"}}>
                 <button disabled={page === 0} onClick={()=> handlePageDown()}>Prev Page</button>
                 <h3>{`Page: ${page+1} of ${numPages+1}`}</h3>

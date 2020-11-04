@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Select = ({title, value, changeHandler, options}) => {
+const Select = ({title, value, changeHandler, options, on, toggle}) => {
     return ( 
         <div>
             <p>{title}</p>
@@ -10,6 +10,13 @@ const Select = ({title, value, changeHandler, options}) => {
             >
                 {options}
             </select> 
+            <br/>
+            <div className="radio">
+                <label>
+                <input type="radio" onClick={toggle} checked={on} />
+                    {on ? "On" : "Off"}
+                </label>
+            </div>
         </div>
     );
 }
