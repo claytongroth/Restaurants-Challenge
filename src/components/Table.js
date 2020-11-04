@@ -1,6 +1,7 @@
 import React from 'react';
 
-const Table = ({array}) => {
+const Table = ({page, array}) => {
+    const displaySlice = array.slice(page, page+10);
     return (  
         <table>
             <tbody>
@@ -12,7 +13,7 @@ const Table = ({array}) => {
                     <th>Attire</th>
                 </tr>
                 {
-                    array.map((item, i) => {
+                    displaySlice.map((item, i) => {
                         return (
                             <tr key={i} >
                                 <td>{item.name}</td>

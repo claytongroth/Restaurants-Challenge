@@ -9,6 +9,9 @@ const RestaurantsSearchPage = () => {
     //filtered result for dipslaying in table
     const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
+    const [page, setPage] = useState(0);
+    const [numPages, setNumPages] = useState(0);
+
     const [possibleStates, setPossibleStates] = useState([]);
     const [possibleGenres, setPossibleGenres] = useState([]);
     const [possibleAttires, setPossibleAttires] = useState([]);
@@ -59,6 +62,8 @@ const RestaurantsSearchPage = () => {
          //set filtered and sort them alphabetically
         newRestaurants = newRestaurants.sort((a,b) => (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0);
         setFilteredRestaurants(newRestaurants);
+        //set number of pages to rounded new results / 10
+        setNumPages( Math.floor(newRestaurants.length / 10))
     }, [allRestaurants, stateValue, genreValue, attireValue, searchFilter])
 
     //if search goes empty or gets below 4 charaters, clear filter
@@ -87,6 +92,18 @@ const RestaurantsSearchPage = () => {
             setSearchFilter(search);
         }
     }
+
+    const handlePageUp = () => {
+        if (page < numPages){
+            setPage(page +1)
+        }
+    }
+    const handlePageDown = () => {
+        if (page >= 0){
+            setPage(page - 1 )
+        }
+    }
+
     return ( 
         <div>
             <div style={{display: "flex", justifyContent:"space-evenly"}}>
@@ -116,10 +133,17 @@ const RestaurantsSearchPage = () => {
                     options={setOptions(possibleAttires)} 
                 />
             </div>
+            
+            <div style={{display: "flex", justifyContent:"space-between"}}>
+                <button disabled={page === 0} onClick={()=> handlePageDown()}>Prev Page</button>
+                <h3>{`Page: ${page+1} of ${numPages+1}`}</h3>
+                <button disabled={page === numPages}  onClick={()=> handlePageUp()}>Next Page</button>
+            </div>
+
             <hr/>
             {
                 filteredRestaurants.length > 0 ?
-                <Table array={filteredRestaurants} />
+                <Table page={page} array={filteredRestaurants} />
             : 
                 <h3>No search results. Please try broadening your search!</h3>
             }
