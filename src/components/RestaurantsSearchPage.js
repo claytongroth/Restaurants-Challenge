@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import fetchRestaurantData from '../api/fetchRestaurantData'
 import Select from './Select';
+import Table from './Table';
 
 const RestaurantsSearchPage = () => {
     const [allRestaurants, setAllRestaurants] = useState([]);
@@ -118,30 +119,7 @@ const RestaurantsSearchPage = () => {
             <hr/>
             {
                 filteredRestaurants.length > 0 ?
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>Name</th>
-                            <th>City</th>
-                            <th>State</th>
-                            <th>Genres</th>
-                            <th>Attire</th>
-                        </tr>
-                        {
-                            filteredRestaurants.map((item, i) => {
-                                return (
-                                    <tr key={i} >
-                                        <td>{item.name}</td>
-                                        <td>{item.city}</td>
-                                        <td>{item.state}</td>
-                                        <td>{item.genre.replace(/,[s]*/g, ", ")}</td>
-                                        <td>{item.attire}</td>
-                                    </tr>
-                                );
-                            })
-                        }
-                    </tbody>
-                </table>
+                <Table array={filteredRestaurants} />
             : 
                 <h3>No search results. Please try broadening your search!</h3>
             }
