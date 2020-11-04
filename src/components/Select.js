@@ -2,9 +2,10 @@ import React from 'react';
 
 const Select = ({title, value, changeHandler, options, on, toggle}) => {
     return ( 
-        <div>
+        <div className="select-wrapper">
             <p>{title}</p>
             <select 
+                className="select"
                 value={value} 
                 onChange={changeHandler} 
             >

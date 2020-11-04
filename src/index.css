@@ -12,6 +12,71 @@ code {
     monospace;
 }
 
+.even-row {
+  display: flex;
+  justify-content:space-evenly;
+  flex-wrap: wrap;
+}
+
+/* Start Search CSS */
+.search-btn  {
+  background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 5px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+}
+.search-btn:hover {
+  background-color: rgb(146, 146, 146);
+}
+/* End Search CSS */
+
+/* Start Select CSS */
+
+.select-wrapper {
+  display: flex;
+  justify-content:space-evenly;
+  width: 30%;
+  background-color: #ddd;
+  border-radius: 16px;
+}
+.radio {
+  margin-top: 15px;
+}
+.select {
+  height: 20px;
+  margin-top: 15px;
+}
+/* End Select CSS */
+
+/* Start pagination CSS */
+.pagination-row {
+  display: flex;
+  justify-content:space-between;
+}
+.pagination-row button {
+  background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+}
+.pagination-row button:hover {
+  background-color: rgb(146, 146, 146);
+}
+/* End pagination CSS */
+
+
 /* Start Table CSS */
 table {
   width: 100%;

@@ -113,14 +113,17 @@ const RestaurantsSearchPage = () => {
 
     return ( 
         <div>
-            <div style={{display: "flex", justifyContent:"space-evenly"}}>
+            <div className="even-row">
                 <h2> Restaurants </h2>
                 <div>
                     <p>Search</p>
                     
                     <input onKeyPress={(e)=> {handleKeyPress(e)}} value={search} onChange={(e)=>setSearch(e.target.value)}/>
-                    <button onClick={()=>setSearchFilter(search)}>Search</button>
+                    <button className="search-btn" onClick={()=>setSearchFilter(search)}>Search</button>
                 </div>
+            </div>
+            <br/>
+            <div className="even-row selects">
                 <Select 
                     title="State"
                     value={stateValue} 
@@ -146,7 +149,6 @@ const RestaurantsSearchPage = () => {
                     on={attireOn}
                     toggle={()=>setAttireOn(!attireOn)}
                 />
-                
             </div>
 
             <PaginationRow 
