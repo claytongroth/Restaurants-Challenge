@@ -16,7 +16,7 @@ const Table = ({page, array}) => {
                 {
                     displaySlice.map((item, i) => {
                         return (
-                            <tr key={i} >
+                            <tr className="table-row" onClick={()=>window.open(item.website, "_blank")} key={i} >
                                 <td>{item.name}</td>
                                 <td>{item.city}</td>
                                 <td>{item.state}</td>

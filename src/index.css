@@ -121,4 +121,9 @@ td {
   text-align: left;
   padding: 10px;
 }
+
+.table-row:hover {
+  cursor: pointer;
+ background-color: #ddd;
+}
 /* End Table CSS */
