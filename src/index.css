@@ -49,6 +49,8 @@ code {
   margin-top: 15px;
 }
 .select {
+  border-radius: 2px;
+  width: 100px;
   height: 20px;
   margin-top: 15px;
 }
