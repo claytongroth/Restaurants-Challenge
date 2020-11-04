@@ -70,6 +70,8 @@ const RestaurantsSearchPage = () => {
         newRestaurants = newRestaurants.sort((a,b) => (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0);
         setFilteredRestaurants(newRestaurants);
         //set number of pages to rounded new results / 10
+        //Also, set page number to 0 every time the filters are changed.
+        setPage(0);
         setNumPages( Math.floor(newRestaurants.length / 10))
     }, [allRestaurants, stateValue, genreValue, attireValue, stateOn, genreOn, attireOn, searchFilter])
 
