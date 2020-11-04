@@ -3,7 +3,25 @@ import fetchRestaurantData from '../api/fetchRestaurantData'
 
 const RestaurantsSearchPage = () => {
     const [allRestaurants, setAllRestaurants] = useState([]);
+    const [possibleStates, setPossibleStates] = useState([]);
+    const [possibleGenres, setPossibleGenres] = useState([]);
+    const [possibleAttires, setPossibleAttires] = useState([]);
 
+    const getUniques = (array, property) => {
+        if (property){
+            return [...new Set(array.map(x=>x[property]))];
+        } else {
+            return [...new Set(array)]
+        }
+    }
+
+    useEffect(() => {
+        //Get all unique values and sort alphabetically.
+        setPossibleStates(getUniques(allRestaurants, "state").sort());
+        //Get all of each values constituent string values, flatten the array and get unique values.
+        setPossibleGenres(getUniques(allRestaurants.map(x=>x.genre.split(",")).flat(), null).sort());
+        setPossibleAttires(getUniques(allRestaurants, "attire").sort());
+    }, [allRestaurants])
 
     useEffect(() => {
         fetchRestaurantData().then(res => {
@@ -22,19 +40,19 @@ const RestaurantsSearchPage = () => {
                 <div>
                     <p>State</p>
                     <select>
-                        <option value="Test">Test</option>
+                        {possibleStates.map((x,i)=> <option key={i}>{x}</option>)}
                     </select> 
                 </div> 
                 <div>
-                    <p>Genre</p>
+                    <p>Genres</p>
                     <select>
-                        <option value="Test">Test</option>
+                        {possibleGenres.map((x,i)=> <option key={i}>{x}</option>)}
                     </select> 
                 </div> 
                 <div>
                     <p>Attire</p>
                     <select>
-                        <option value="Test">Test</option>
+                        {possibleAttires.map((x,i)=> <option key={i}>{x}</option>)}
                     </select> 
                 </div> 
             </div>
@@ -43,7 +61,7 @@ const RestaurantsSearchPage = () => {
                 <tbody>
                     <tr>
                         <th>Name</th>
-                        <th>Genre</th>
+                        <th>Genres</th>
                         <th>Attire</th>
                     </tr>
                     {allRestaurants.map((item, i) => {
