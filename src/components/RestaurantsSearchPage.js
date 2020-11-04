@@ -4,21 +4,48 @@ import Select from './Select';
 
 const RestaurantsSearchPage = () => {
     const [allRestaurants, setAllRestaurants] = useState([]);
+
+    //filtered result for dipslaying in table
+    const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+
     const [possibleStates, setPossibleStates] = useState([]);
     const [possibleGenres, setPossibleGenres] = useState([]);
     const [possibleAttires, setPossibleAttires] = useState([]);
 
-    const [stateValue, setStateValue] = useState("All")
-    const [genreValue, setGenreValue] = useState("All")
-    const [attireValue, setAttireValue] = useState("All")
+    const [stateValue, setStateValue] = useState("All");
+    const [genreValue, setGenreValue] = useState("All");
+    const [attireValue, setAttireValue] = useState("All");
 
     const getUniques = (array, property) => {
         if (property){
             return [...new Set(array.map(x=>x[property]))];
         } else {
-            return [...new Set(array)]
+            return [...new Set(array)];
         }
     }
+
+    useEffect(() => {
+        fetchRestaurantData().then(res => {
+            setAllRestaurants(res);
+        })
+    }, []);
+
+    //When any of the select values change, filter for rest results.
+    useEffect(() => {
+        let newRestaurants = [...allRestaurants];
+        if (stateValue !== "All"){
+            newRestaurants = newRestaurants.filter(rest =>  rest.state === stateValue );
+        }
+        if (genreValue !== "All"){
+            newRestaurants = newRestaurants.filter(rest => rest.genre.includes(genreValue));
+        }
+        if (attireValue !== "All"){
+            newRestaurants = newRestaurants.filter(rest => rest.attire === attireValue);
+        }
+         //set filtered and sort them alphabetically
+        newRestaurants = newRestaurants.sort((a,b) => (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0);
+        setFilteredRestaurants(newRestaurants);
+    }, [allRestaurants, stateValue, genreValue, attireValue])
 
     useEffect(() => {
         //Get all unique values and sort alphabetically.
@@ -28,11 +55,6 @@ const RestaurantsSearchPage = () => {
         setPossibleAttires(getUniques(allRestaurants, "attire").sort());
     }, [allRestaurants])
 
-    useEffect(() => {
-        fetchRestaurantData().then(res => {
-            setAllRestaurants(res);
-        })
-    }, [])
 
     const setOptions = (arr) => {
         //return all options for that array preceded by "ALL" option.
@@ -67,24 +89,31 @@ const RestaurantsSearchPage = () => {
                 />
             </div>
             <hr/>
-            <table>
-                <tbody>
-                    <tr>
-                        <th>Name</th>
-                        <th>Genres</th>
-                        <th>Attire</th>
-                    </tr>
-                    {allRestaurants.map((item, i) => {
-                        return (
-                            <tr key={i} >
-                                <td>{item.name}</td>
-                                <td>{item.genre}</td>
-                                <td>{item.attire}</td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+            {
+                filteredRestaurants.length > 0 ?
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <th>Genres</th>
+                            <th>Attire</th>
+                        </tr>
+                        {
+                            filteredRestaurants.map((item, i) => {
+                                return (
+                                    <tr key={i} >
+                                        <td>{item.name}</td>
+                                        <td>{item.genre}</td>
+                                        <td>{item.attire}</td>
+                                    </tr>
+                                );
+                            })
+                        }
+                    </tbody>
+                </table>
+            : 
+                <h3>No search results. Please try broadening your search!</h3>
+            }
         </div>
         
     );
