@@ -12,6 +12,11 @@ const RestaurantsSearchPage = () => {
     const [possibleGenres, setPossibleGenres] = useState([]);
     const [possibleAttires, setPossibleAttires] = useState([]);
 
+    //hold the search value 
+    const [search, setSearch] = useState('');
+    //search filter for results set from search value
+    const [searchFilter, setSearchFilter] = useState('');
+
     const [stateValue, setStateValue] = useState("All");
     const [genreValue, setGenreValue] = useState("All");
     const [attireValue, setAttireValue] = useState("All");
@@ -42,10 +47,25 @@ const RestaurantsSearchPage = () => {
         if (attireValue !== "All"){
             newRestaurants = newRestaurants.filter(rest => rest.attire === attireValue);
         }
+        if (searchFilter){
+            const searchTerm = searchFilter.toLowerCase();
+            newRestaurants = newRestaurants.filter(rest => { 
+               return rest.name.toLowerCase().includes(searchTerm) || 
+                rest.city.toLowerCase().includes(searchTerm) || 
+                rest.genre.toLowerCase().includes(searchTerm)
+            })
+        }
          //set filtered and sort them alphabetically
         newRestaurants = newRestaurants.sort((a,b) => (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0);
         setFilteredRestaurants(newRestaurants);
-    }, [allRestaurants, stateValue, genreValue, attireValue])
+    }, [allRestaurants, stateValue, genreValue, attireValue, searchFilter])
+
+    //if search goes empty or gets below 4 charaters, clear filter
+    useEffect(() => {
+        if (!search || search.length < 4) {
+            setSearchFilter('');
+        }
+    }, [search])
 
     useEffect(() => {
         //Get all unique values and sort alphabetically.
@@ -67,7 +87,8 @@ const RestaurantsSearchPage = () => {
                 <h2> Restaurants </h2>
                 <div>
                     <p>Search</p>
-                    <input/>
+                    <input value={search} onChange={(e)=>setSearch(e.target.value)}/>
+                    <button onClick={()=>setSearchFilter(search)}>Search</button>
                 </div>
                 <Select 
                     title="State"
@@ -95,6 +116,7 @@ const RestaurantsSearchPage = () => {
                     <tbody>
                         <tr>
                             <th>Name</th>
+                            <th>City</th>
                             <th>Genres</th>
                             <th>Attire</th>
                         </tr>
@@ -103,6 +125,7 @@ const RestaurantsSearchPage = () => {
                                 return (
                                     <tr key={i} >
                                         <td>{item.name}</td>
+                                        <td>{item.city}</td>
                                         <td>{item.genre}</td>
                                         <td>{item.attire}</td>
                                     </tr>
