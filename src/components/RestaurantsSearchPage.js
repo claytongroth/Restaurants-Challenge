@@ -7,6 +7,10 @@ const RestaurantsSearchPage = () => {
     const [possibleGenres, setPossibleGenres] = useState([]);
     const [possibleAttires, setPossibleAttires] = useState([]);
 
+    const [stateValue, setStateValue] = useState("All")
+    const [genreValue, setGenreValue] = useState("All")
+    const [attireValue, setAttireValue] = useState("All")
+
     const getUniques = (array, property) => {
         if (property){
             return [...new Set(array.map(x=>x[property]))];
@@ -29,6 +33,11 @@ const RestaurantsSearchPage = () => {
         })
     }, [])
 
+    const setOptions = (arr) => {
+        //return all options for that array preceded by "ALL" option.
+        return [<option value="All">All</option>, ...arr.map((x,i)=> <option key={i} value={x}>{x}</option>)]
+    }
+
     return ( 
         <div>
             <div style={{display: "flex", justifyContent:"space-evenly"}}>
@@ -39,20 +48,29 @@ const RestaurantsSearchPage = () => {
                 </div>
                 <div>
                     <p>State</p>
-                    <select>
-                        {possibleStates.map((x,i)=> <option key={i}>{x}</option>)}
+                    <select 
+                        value={stateValue} 
+                        onChange={(e)=>setStateValue(e.target.value)} 
+                    >
+                        {setOptions(possibleStates)}
                     </select> 
                 </div> 
                 <div>
                     <p>Genres</p>
-                    <select>
-                        {possibleGenres.map((x,i)=> <option key={i}>{x}</option>)}
+                    <select
+                        value={genreValue} 
+                        onChange={(e)=>setGenreValue(e.target.value)} 
+                    >
+                        {setOptions(possibleGenres)}
                     </select> 
                 </div> 
                 <div>
                     <p>Attire</p>
-                    <select>
-                        {possibleAttires.map((x,i)=> <option key={i}>{x}</option>)}
+                    <select
+                        value={attireValue} 
+                        onChange={(e)=>setAttireValue(e.target.value)} 
+                    >
+                        {setOptions(possibleAttires)}
                     </select> 
                 </div> 
             </div>
