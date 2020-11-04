@@ -4,14 +4,11 @@ import fetchRestaurantData from '../api/fetchRestaurantData'
 const RestaurantsSearchPage = () => {
     const [allRestaurants, setAllRestaurants] = useState([]);
 
-    const fetchData = async () => {
-        fetchRestaurantData();
-    }
-
     useEffect(() => {
-        fetchData().then(res => 
-            setAllRestaurants(res)
-        )
+        fetchRestaurantData().then(res => {
+            console.log(res)
+            setAllRestaurants(res);
+        })
     }, [])
 
     return ( 
